@@ -18,11 +18,11 @@ jar {
 dependencies {
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
-    compileOnly('com.google.code.gson:gson:2.7')
-    compileOnly('org.ini4j:ini4j:0.5.4')
-    compileOnly('args4j:args4j-site:2.37')
-    compileOnly(group: 'args4j', name: 'args4j', version: '2.37')
-    compileOnly('args4j:args4j-tools:2.37')
+    implementation('com.google.code.gson:gson:2.7')
+    implementation('org.ini4j:ini4j:0.5.4')
+    implementation('args4j:args4j-site:2.37')
+    implementation(group: 'args4j', name: 'args4j', version: '2.37')
+    implementation('args4j:args4j-tools:2.37')
 }
 
 test {

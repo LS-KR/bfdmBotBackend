@@ -50,7 +50,6 @@ public class Main {
 
     public void ParserMain(String[] args) {
         CmdLineParser parser = new CmdLineParser(this);
-        parser.setUsageWidth(80);
         try {
             parser.parseArgument(args);
         }
