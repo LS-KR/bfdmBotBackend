@@ -20,7 +20,6 @@ public class MainPostHandler implements HttpHandler {
         String response = "";
         Headers headers = httpExchange.getRequestHeaders();
         String headerAuth = headers.getFirst("Authentication");
-        Logger.Log(LoggerLevel.NOTIFICATION, "Detected auth: " + headerAuth);
 
         httpExchange.getResponseHeaders().add("Content-Type", "application/json");
         httpExchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
@@ -67,7 +66,6 @@ public class MainPostHandler implements HttpHandler {
             default:
                 response = "{\"result\":\"invalid method\"}";
         }
-        Logger.Log(LoggerLevel.NOTIFICATION, response);
         httpExchange.sendResponseHeaders(status, response.getBytes().length);
         OutputStream outputStream = httpExchange.getResponseBody();
         outputStream.write(response.getBytes());

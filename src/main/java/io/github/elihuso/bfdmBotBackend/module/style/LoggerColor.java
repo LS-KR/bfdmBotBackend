@@ -9,14 +9,14 @@ public enum LoggerColor {
     MAGENTA(5),
     CYAN(6),
     WHITE(7),
-    BRIGHT_BLACK(30),
-    BRIGHT_RED(31),
-    BRIGHT_GREEN(32),
-    BRIGHT_YELLOW(33),
-    BRIGHT_BLUE(34),
-    BRIGHT_MAGENTA(35),
-    BRIGHT_CYAN(36),
-    BRIGHT_WHITE(37);
+    BRIGHT_BLACK(60),
+    BRIGHT_RED(61),
+    BRIGHT_GREEN(62),
+    BRIGHT_YELLOW(63),
+    BRIGHT_BLUE(64),
+    BRIGHT_MAGENTA(65),
+    BRIGHT_CYAN(66),
+    BRIGHT_WHITE(67);
 
     private final int value;
 

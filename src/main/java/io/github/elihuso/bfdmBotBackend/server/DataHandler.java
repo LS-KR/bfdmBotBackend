@@ -14,9 +14,11 @@ public class DataHandler {
             BloomFilter bf = new BloomFilter(Main.size, MessageDigest.getInstance(Main.encrypt));
             bf.loadFromFile(Main.DatabasePath);
             if (bf.mightHas(id.getBytes(StandardCharsets.US_ASCII))) {
+                Logger.Log(LoggerLevel.POSITIVE, id);
                 return "{\"result\":true}";
             }
             else {
+                Logger.Log(LoggerLevel.NEGATIVE, id);
                 return "{\"result\":false}";
             }
         }
@@ -32,6 +34,7 @@ public class DataHandler {
             bf.loadFromFile(Main.DatabasePath);
             bf.add(id.getBytes(StandardCharsets.US_ASCII));
             bf.writeIntoFile(Main.DatabasePath);
+            Logger.Log(LoggerLevel.POSITIVE, id);
             return "{\"result\":\"success\"}";
         }
         catch (Exception e) {
@@ -46,6 +49,7 @@ public class DataHandler {
             bf.loadFromFile(Main.DatabasePath);
             bf.del(id.getBytes(StandardCharsets.US_ASCII));
             bf.writeIntoFile(Main.DatabasePath);
+            Logger.Log(LoggerLevel.NEGATIVE, id);
             return "{\"result\":\"success\"}";
         }
         catch (Exception e) {

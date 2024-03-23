@@ -38,6 +38,8 @@ public class Main {
     public static String encrypt = "SHA-256";
     public static int size = 2147483647;
     public static String auth = "";
+    public static HttpServer server;
+    public static boolean running = true;
 
 
     public static void main(String[] args) {
@@ -61,7 +63,6 @@ public class Main {
             Logger.Log(LoggerLevel.WARNING, "use -h for help");
             return;
         }
-        HttpServer server;
         try {
             server = HttpServer.create(new InetSocketAddress(port), 0);
         }
@@ -91,7 +92,14 @@ public class Main {
         server.createContext("/record.json", new MainPostHandler());
         server.setExecutor(null);
         server.start();
-        while (true);
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            System.out.println();
+            Logger.Log(LoggerLevel.WARNING, "Closing Server...");
+            Main.server.stop(0);
+            Logger.Log(LoggerLevel.NOTIFICATION, "Goodbye!");
+            Main.running = false;
+        }));
+        while (running);
     }
 
     public static void initialConfig() throws IOException{
