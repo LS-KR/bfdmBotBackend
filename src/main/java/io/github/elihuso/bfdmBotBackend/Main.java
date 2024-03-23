@@ -45,10 +45,10 @@ public class Main {
             System.out.println("-d <database port>  Specify where the database is, default as ./list.bfdb");
             return;
         }
-        new Main().ParserMain(args);
+        new Main().doMain(args);
     }
 
-    public void ParserMain(String[] args) {
+    public void doMain(String[] args) {
         CmdLineParser parser = new CmdLineParser(this);
         try {
             parser.parseArgument(args);
@@ -86,6 +86,9 @@ public class Main {
             return;
         }
         server.createContext("/record.json", new MainPostHandler());
+        server.setExecutor(null);
+        server.start();
+        while (true);
     }
 
     public static void initialConfig() throws IOException{
@@ -100,8 +103,6 @@ public class Main {
         Ini ini = new Ini(config);
         if (ini.get("DEFAULT").containsKey("encrypt"))
             encrypt = ini.get("DEFAULT", "encrypt");
-        if (ini.get("DEFAULT").containsKey("size"))
-            size = Integer.getInteger(ini.get("DEFAULT", "size")).intValue();
     }
 
     public static void initialDatabase() throws IOException, NoSuchAlgorithmException {

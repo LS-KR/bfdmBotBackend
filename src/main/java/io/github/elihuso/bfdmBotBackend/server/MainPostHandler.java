@@ -8,6 +8,8 @@ import io.github.elihuso.bfdmBotBackend.Main;
 import io.github.elihuso.bfdmBotBackend.data.InBounds;
 import io.github.elihuso.bfdmBotBackend.logic.BloomFilter;
 import io.github.elihuso.bfdmBotBackend.logic.Streaming;
+import io.github.elihuso.bfdmBotBackend.module.Logger;
+import io.github.elihuso.bfdmBotBackend.module.style.LoggerLevel;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -32,6 +34,7 @@ public class MainPostHandler implements HttpHandler {
             return;
         }
         String request = Streaming.ReadInputStream(httpExchange.getRequestBody());
+        Logger.Log(LoggerLevel.NOTIFICATION, request);
         JsonObject object = new Gson().fromJson(request, JsonObject.class);
         InBounds inBounds = new InBounds(object.get("method").getAsString(), object.get("id").getAsString());
         try {
