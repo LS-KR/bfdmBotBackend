@@ -2,6 +2,7 @@ package io.github.elihuso.bfdmBotBackend;
 
 import com.sun.net.httpserver.HttpServer;
 import io.github.elihuso.bfdmBotBackend.logic.BloomFilter;
+import io.github.elihuso.bfdmBotBackend.logic.Randoms;
 import io.github.elihuso.bfdmBotBackend.logic.Streaming;
 import io.github.elihuso.bfdmBotBackend.module.Logger;
 import io.github.elihuso.bfdmBotBackend.module.style.LoggerLevel;
@@ -17,6 +18,7 @@ import java.io.InputStream;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -35,6 +37,7 @@ public class Main {
 
     public static String encrypt = "SHA-256";
     public static int size = 2147483647;
+    public static String auth = "";
 
 
     public static void main(String[] args) {
@@ -101,8 +104,23 @@ public class Main {
             Files.write(config.toPath().toAbsolutePath(), s.getBytes(StandardCharsets.UTF_8));
         }
         Ini ini = new Ini(config);
-        if (ini.get("DEFAULT").containsKey("encrypt"))
+        if (ini.get("DEFAULT").containsKey("encrypt")) {
             encrypt = ini.get("DEFAULT", "encrypt");
+            Logger.Log(LoggerLevel.NOTIFICATION, "Encrypt: " + encrypt);
+        }
+        if (ini.get("DEFAULT").containsKey("size")) {
+            Logger.Log(LoggerLevel.NOTIFICATION, "Size: " + ini.get("DEFAULT", "size"));
+            size = Integer.parseInt(ini.get("DEFAULT", "size"));
+        }
+        if (!ini.get("DEFAULT").containsKey("auth")) {
+            auth = Randoms.RandomString(50);
+            Logger.Log(LoggerLevel.NOTIFICATION, "Generated new auth: " + auth);
+            Files.write(config.toPath(), ("auth = " + auth).getBytes(), StandardOpenOption.APPEND);
+        }
+        else {
+            auth = ini.get("DEFAULT", "auth");
+            Logger.Log(LoggerLevel.NOTIFICATION, "Auth: " + auth);
+        }
     }
 
     public static void initialDatabase() throws IOException, NoSuchAlgorithmException {

@@ -5,6 +5,7 @@ import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.security.MessageDigest;
 import java.util.BitSet;
 import java.util.stream.IntStream;
@@ -79,7 +80,7 @@ public class BloomFilter {
         IntBuffer intBuffer = buffer.asIntBuffer();
         intBuffer.put(data);
         byte[] rawFile = buffer.array();
-        Files.write(file.toPath(), rawFile);
+        Files.write(file.toPath(), rawFile, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.SYNC);
     }
 
     public void writeIntoFile(String path) throws IOException {
