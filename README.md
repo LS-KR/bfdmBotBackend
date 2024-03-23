@@ -9,7 +9,7 @@ A list backend which use BloomFilter request by @MoYoez.
 java -jar ./bfdmBotBackend-1.0-SNAPSHOT-all.jar
 ```
 
-use `Ctrl + C` (`^C`) to stop server.
+use `Ctrl + C` (`^C`) or type `exit` to stop server.
 
 ## Setup
 

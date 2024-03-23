@@ -6,6 +6,7 @@ import io.github.elihuso.bfdmBotBackend.logic.Randoms;
 import io.github.elihuso.bfdmBotBackend.logic.Streaming;
 import io.github.elihuso.bfdmBotBackend.module.Logger;
 import io.github.elihuso.bfdmBotBackend.module.style.LoggerLevel;
+import io.github.elihuso.bfdmBotBackend.server.CommandHandler;
 import io.github.elihuso.bfdmBotBackend.server.MainPostHandler;
 import org.ini4j.Ini;
 import org.kohsuke.args4j.Argument;
@@ -24,6 +25,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
     @Option(name = "-c", usage = "Config Path")
@@ -99,7 +101,20 @@ public class Main {
             Logger.Log(LoggerLevel.NOTIFICATION, "Goodbye!");
             Main.running = false;
         }));
-        while (running) Thread.sleep(500, 0);
+        Scanner scanner = new Scanner(System.in);
+        while (running) {
+            if (!scanner.hasNextLine()) {
+                Thread.sleep(50, 0);
+                continue;
+            }
+            String command = scanner.nextLine();
+            command = command.replaceAll("\n", "");
+            if (command.equals("exit")) {
+                server.stop(0);
+                running = false;
+            }
+            else CommandHandler.RunCommand(CommandHandler.CommandParser(command).toArray(String[]::new));
+        }
     }
 
     public static void initialConfig() throws IOException {
