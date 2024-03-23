@@ -99,10 +99,10 @@ public class Main {
             Logger.Log(LoggerLevel.NOTIFICATION, "Goodbye!");
             Main.running = false;
         }));
-        while (running);
+        while (running) ;
     }
 
-    public static void initialConfig() throws IOException{
+    public static void initialConfig() throws IOException {
         File config = new File(ConfigPath);
         if (!config.exists()) {
             config.createNewFile();

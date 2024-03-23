@@ -5,11 +5,9 @@ import io.github.elihuso.bfdmBotBackend.module.style.LoggerGround;
 import io.github.elihuso.bfdmBotBackend.module.style.LoggerLevel;
 
 public class Logger {
-    
-    static String[] levelTeg = {
-            "[+] ", "[-] ", "[*] ", "[!] "
-    };
-    
+
+    static String[] levelTeg = {"[+] ", "[-] ", "[*] ", "[!] "};
+
     public static void SetLoggerColor(LoggerGround ground, LoggerColor color) {
         int v = ground.getValue() + color.getValue();
         System.out.print("\033[");
@@ -27,7 +25,7 @@ public class Logger {
     public static void SetNormalLogger() {
         System.out.print("\033[0m");
     }
-    
+
     public static void Log(LoggerLevel level, String message) {
         switch (level) {
             case NEGATIVE:

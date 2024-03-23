@@ -1,8 +1,7 @@
 package io.github.elihuso.bfdmBotBackend.module.style;
 
 public enum LoggerGround {
-    FOREGROUND(30),
-    BACKGROUND(40);
+    FOREGROUND(30), BACKGROUND(40);
 
     private final int value;
 

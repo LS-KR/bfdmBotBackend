@@ -52,6 +52,7 @@ public class BloomFilter {
 
         return true;
     }
+
     public BitSet getHash() {
         return hash;
     }
