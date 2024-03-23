@@ -42,7 +42,7 @@ public class Main {
     public static boolean running = true;
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         List as = Arrays.asList(args);
         if (as.contains("-h")) {
             System.out.println("-c <config path>    Specify where the config file is, default as ./config.ini");
@@ -53,7 +53,7 @@ public class Main {
         new Main().doMain(args);
     }
 
-    public void doMain(String[] args) {
+    public void doMain(String[] args) throws InterruptedException {
         CmdLineParser parser = new CmdLineParser(this);
         try {
             parser.parseArgument(args);
@@ -99,7 +99,7 @@ public class Main {
             Logger.Log(LoggerLevel.NOTIFICATION, "Goodbye!");
             Main.running = false;
         }));
-        while (running) ;
+        while (running) Thread.sleep(500, 0);
     }
 
     public static void initialConfig() throws IOException {
