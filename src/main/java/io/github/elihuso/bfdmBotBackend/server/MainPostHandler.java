@@ -23,7 +23,7 @@ public class MainPostHandler implements HttpHandler {
 
         httpExchange.getResponseHeaders().add("Content-Type", "application/json");
         httpExchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
-        httpExchange.getResponseHeaders().add("Access-Control-Allow-Headers", "origin, content-type, accept, authorization");
+        httpExchange.getResponseHeaders().add("Access-Control-Allow-Headers", "origin, content-type, accept, authorization, authentication");
         httpExchange.getResponseHeaders().add("Access-Control-Allow-Credentials", "true");
         httpExchange.getResponseHeaders().add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
 
