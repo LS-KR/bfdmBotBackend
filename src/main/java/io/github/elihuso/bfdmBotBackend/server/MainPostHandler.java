@@ -43,7 +43,11 @@ public class MainPostHandler implements HttpHandler {
         String id = inBounds.id;
         int status = 200;
 
-        switch (method.toLowerCase()) {
+        if ((id == null) || (method == null)) {
+            response = "<html><body><h1>Bad Request</h1></body></html>";
+            status = 400;
+        }
+        else switch (method.toLowerCase()) {
             case "check":
                 response = DataHandler.Check(id);
                 break;
@@ -64,8 +68,10 @@ public class MainPostHandler implements HttpHandler {
                 }
                 break;
             default:
-                response = "{\"result\":\"invalid method\"}";
+                response = "<html><body><h1>Bad Request</h1></body></html>";
+                status = 400;
         }
+
         httpExchange.sendResponseHeaders(status, response.getBytes().length);
         OutputStream outputStream = httpExchange.getResponseBody();
         outputStream.write(response.getBytes());
